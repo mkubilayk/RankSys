@@ -16,8 +16,8 @@
    width="625"
    height="625"
    viewBox="0 0 625 625"
-   sodipodi:docname="logo3.svg"
-   inkscape:export-filename="/home/saul/Downloads/logo3.png"
+   sodipodi:docname="logo-final.svg"
+   inkscape:export-filename="/home/saul/Downloads/logo-final.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <metadata
@@ -55,7 +55,8 @@
        x2="313.43631"
        y2="313.90256"
        gradientUnits="userSpaceOnUse"
-       spreadMethod="reflect" />
+       spreadMethod="reflect"
+       gradientTransform="matrix(0.97619055,0,0,0.97619049,7.4404916,7.4404926)" />
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -71,8 +72,8 @@
      id="namedview3418"
      showgrid="false"
      inkscape:zoom="1.0680141"
-     inkscape:cx="227.24121"
-     inkscape:cy="366.39345"
+     inkscape:cx="249.51531"
+     inkscape:cy="325.1955"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -84,22 +85,23 @@
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0"
        id="rect4435"
-       width="495.31183"
-       height="440.06909"
-       x="39.325325"
-       y="168.07718"
-       ry="33.2393" />
+       width="483.51871"
+       height="429.59125"
+       x="70.740646"
+       y="97.704376"
+       ry="32.447887" />
     <rect
-       style="opacity:1;fill:url(#linearGradient5438);fill-opacity:1;stroke:#a3a3a3;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:url(#linearGradient5438);fill-opacity:1;stroke:#a3a3a3;stroke-width:4.88095284;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4991"
-       width="625"
-       height="625"
-       x="0"
-       y="5.6843419e-14"
-       ry="125" />
+       width="610.11902"
+       height="610.11902"
+       x="7.4404907"
+       y="7.4404907"
+       ry="122.02382" />
     <path
        id="path4189"
        style="fill:#0064b1;fill-opacity:1"
-       d="m 512.5,212.5 -100,-100 -100,0 0,100 -100,0 0,100 -100,0 0,100 c 33.70792,39.02912 68.94864,65.87249 100,100 l 300,0 z m -300,280 0,-80 100,0 0,-100 100,0 0,-100 80,0 0,280 z M 155,50 470,50 c 58.17,0 105,46.83 105,105 l 0,315 c 0,58.17 -46.83,105 -105,105 l -315,0 C 96.83,575 50,528.17 50,470 L 50,155 C 50,96.83 96.83,50 155,50 Z" />
+       d="m 507.7381,214.88096 -97.61906,-97.61905 -97.61904,0 0,97.61905 -97.61906,0 0,97.61904 -97.61905,0 0,97.61904 c 32.90535,38.09986 67.30702,64.30411 97.61905,97.61905 l 292.85716,0 z m -292.85716,273.33332 0,-78.09524 97.61906,0 0,-97.61904 97.61904,0 0,-97.61904 78.09525,0 0,273.33332 z m -56.13096,-431.964279 307.50003,0 c 56.78499,0 102.5,45.714989 102.5,102.499999 l 0,307.5 c 0,56.78501 -45.71501,102.5 -102.5,102.5 l -307.50003,0 C 101.965,568.75 56.249986,523.03501 56.249986,466.25 l 0,-307.5 c 0,-56.78501 45.715014,-102.499999 102.499994,-102.499999 z"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>
