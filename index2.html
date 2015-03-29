@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>RankSys</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <style>
+        body {
+            background-color: #eeeeee;
+        }
+        
+        h1 {
+            font-weight: bold;
+        }
+    
+        .sidepanel {
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+        
+        .vcenter {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+    </style>
+    
+  </head>
+  <body>
+  
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2 vcenter">
+                <img src="images/logo.svg" alt="RankSys logo" class="img-responsive" style="margin: 10px;"/>
+            </div><!--
+         --><div class="col-xs-8 col-md-10 vcenter">
+                <h1>RankSys<br><small>Java 8 Recommender Systems framework for novelty, diversity and much more</small></h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="row panel panel-default sidepanel">
+                    <div class="panel-heading"><h2 class="panel-title">Links</h2></div>
+                    <div class="panel-body" style="text-align: center;">
+                        <a class="btn btn-default btn-lg" href="https://github.com/ir-uam/RankSys/zipball/master" role="button"><img src="images/zip-icon.png" alt="Download as .zip"/></a>
+                        <a class="btn btn-default btn-lg" href="https://github.com/ir-uam/RankSys/tarball/master" role="button"><img src="images/tar-gz-icon.png" alt="Download as .tar.gz"/></a>
+                        <a class="btn btn-default btn-lg" href="https://github.com/ir-uam/RankSys" role="button"><img src="images/octocat-icon.png" alt="See source in GitHub"/></a>
+                        <a class="btn btn-default btn-lg" href="http://ir-uam.github.io/RankSys/javadoc/" role="button"><img src="images/javadoc.png" alt="See Javadoc"/></a>
+                        <a class="btn btn-default btn-lg" href="https://github.com/ir-uam/RankSys/wiki" role="button"><img src="images/wiki.png" alt="Consult the wiki"/></a>
+                    </div>
+                </div>
+                <div class="row panel panel-default sidepanel">
+                    <div class="panel-heading"><h2 class="panel-title">Authors</h2></div>
+                    <div class="panel-body">
+                        <p style="text-align: center; font-weight: bold;"><a href="http://www.saulvargas.es">Saúl Vargas</a> and <a href="http://ir.ii.uam.es/castells/">Pablo Castells</a> at the</p>
+                        <a href="https://ir.ii.uam.es/"><img src="images/ir-uam.png" class="img-responsive" alt="Information Retrieval Group at UAM"/></a>
+                    </div>
+                </div>
+                <div class="row panel panel-default sidepanel">
+                    <div class="panel-heading"><h2 class="panel-title">References</h2></div>
+                    <div class="panel-body">
+                        <p>If you publish research that uses RankSys, please cite the papers listed <a href="https://github.com/ir-uam/RankSys/wiki/References">here</a> that best match the parts of the framework that you used.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-8">
+                <p>RankSys is a new framework for the implementation and evaluation of recommendation algorithms and techniques that has resulted from a line of research work that is currently documented in several publications (see <a href="https://github.com/ir-uam/RankSys/wiki/References">here</a>) and a <a href="http://ir.ii.uam.es/saul/saulvargas-thesis.pdf">PhD thesis</a>.  While it is envisioned as a framework for the generic experimentation of recommendation technologies, it includes substantial support focusing on the evaluation and enhancement of novelty and diversity. RankSys derives its name from explicitly targeting the ranking task problem, rather than rating prediction. This decision is reflected in the design of the different core interfaces and components of the framework.</p>
+                
+                <p>The framework has been programmed with Java 8, which is the most recent version of the popular programming language. We take advantage of many of the new features of the language, such as the use of lambda functions, <code>Stream</code>'s and facilities for automatic parallelization of the code. The code licensed under the GPL V3, which allows the free use, study, distribution and modification of the software as long as derived works are distributed under the same license.</p>
+                
+                <p>To date, the publicly available version of this framework includes the modules that implement novelty and diversity metrics and re-ranking techniques and the required core components of the framework:</p>
+                
+                <ul>
+                    <li>RankSys-core, which contains the common and auxiliary classes of the framework.</li>
+                    <li>RankSys-metrics, which contains the interfaces and common components for defining metrics.</li>
+                    <li>RankSys-diversity, which contains the novelty and diversity metrics and re-ranking strategies.</li>
+                    <li>RankSys-examples, which provides examples of usage of the previous modules.</li>
+                </ul>
+
+                <p>If you want to know more, the <a href="https://github.com/ir-uam/RankSys/wiki">wiki</a> provides a high-level description of the different components of the current release of the software.</p>
+            
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>  </body>
+</html>
