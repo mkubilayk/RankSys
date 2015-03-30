@@ -40,7 +40,7 @@
         .subtitle-below {
             display: inline;
         }
- 
+         
         @media (min-width: 992px) {
             .subtitle-right {
                 display: inline;
@@ -48,6 +48,12 @@
             
             .subtitle-below {
                 display: none;
+            }
+            
+            .description {
+                column-count: 2;
+                -moz-column-count: 2;
+                -webkit-column-count: 2;
             }
         }
         
@@ -108,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-8" style="padding-top: 20px; text-align: justify;">
+            <div class="col-xs-12 col-md-8 description" style="padding-top: 20px; text-align: justify;">
                 <p>RankSys is a new framework for the implementation and evaluation of recommendation algorithms and techniques that has resulted from a line of research work that is currently documented in several publications (see <a href="https://github.com/ir-uam/RankSys/wiki/References">here</a>) and a <a href="http://ir.ii.uam.es/saul/saulvargas-thesis.pdf">PhD thesis</a>.  While it is envisioned as a framework for the generic experimentation of recommendation technologies, it includes substantial support focusing on the evaluation and enhancement of novelty and diversity. RankSys derives its name from explicitly targeting the ranking task problem, rather than rating prediction. This decision is reflected in the design of the different core interfaces and components of the framework.</p>
                 
                 <p>The framework has been programmed with Java 8, which is the most recent version of the popular programming language. We take advantage of many of the new features of the language, such as the use of lambda functions, <code>Stream</code>'s and facilities for automatic parallelization of the code. The code licensed under the GPL V3, which allows the free use, study, distribution and modification of the software as long as derived works are distributed under the same license.</p>
