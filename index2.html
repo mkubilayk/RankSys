@@ -28,26 +28,21 @@
             background-color: #eeeeee;
         }
         
-        h1 {
+        #title {
             font-weight: bold;
-            font-size: 36pt;
+            font-size: 14pt;
         }
-        
-        .subtitle-right {
-            display: none;
-        }
- 
-        .subtitle-below {
-            display: inline;
+    
+        #subtitle {
         }
          
         @media (min-width: 992px) {
-            .subtitle-right {
-                display: inline;
+            #title {
+                font-weight: bold;
+                font-size: 36pt;
             }
-            
-            .subtitle-below {
-                display: none;
+        
+            #subtitle {
             }
             
 /*            .description {
@@ -78,13 +73,7 @@
                 <img src="images/logo.svg" alt="RankSys logo" class="img-responsive" style="margin: 10px;"/>
             </div><!--
          --><div class="col-xs-8 col-md-10 vcenter">
-               <h1>RankSys<br><small class="subtitle-right">Java 8 Recommender Systems framework <br>for novelty, diversity and much more</small></h1>
-            </div>
-        </div>
-        
-        <div class="row subtitle-below">
-            <div class="col-xs-12 col-md-12"  style="margin-top: -40px; margin-bottom: -20px;">
-                <h1><small>Java 8 Recommender Systems framework for novelty, diversity and much more</small></h1>
+               <h1 id="title">RankSys<br><small id="subtitle">Java 8 Recommender Systems framework <br>for novelty, diversity and much more</small></h1>
             </div>
         </div>
         
