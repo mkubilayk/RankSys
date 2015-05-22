@@ -5,3 +5,7 @@
 /RankSys-fast/target/
 target/
 tmp/
+.classpath
+.settings
+.project
+*/bin

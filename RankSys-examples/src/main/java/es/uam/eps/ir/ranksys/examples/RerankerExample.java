@@ -44,7 +44,7 @@ public class RerankerExample {
         String recOut = args[2];
 
         double lambda = 0.5;
-        int cutoff = 100;
+        int cutoff = 20;
         FeatureData<Long, String, Double> featureData = SimpleFeatureData.load(featurePath, lp, sp, v -> 1.0);
         ItemDistanceModel<Long> dist = new JaccardFeatureItemDistanceModel<>(featureData);
         Reranker<Long, Long> reranker = new MMR<>(lambda, cutoff, dist);

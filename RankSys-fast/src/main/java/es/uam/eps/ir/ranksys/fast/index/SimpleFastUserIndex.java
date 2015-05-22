@@ -103,7 +103,7 @@ public class SimpleFastUserIndex<U> implements FastUserIndex<U> {
         SimpleFastUserIndex<U> userIndex = new SimpleFastUserIndex<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             reader.lines()
-                    .map(line -> uParser.parse(split(line, '\t')[0]))
+            		.map(line -> uParser.parse(line.split("::")[0]))
                     .sorted()
                     .forEach(u -> userIndex.add(u));
         }

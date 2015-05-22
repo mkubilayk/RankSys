@@ -175,7 +175,7 @@ public class SimpleFastPreferenceData<U, I, O> extends AbstractFastPreferenceDat
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             reader.lines().forEach(l -> {
-                CharSequence[] tokens = split(l, '\t', 4);
+            	String[] tokens = l.split("::");
                 U user = uParser.parse(tokens[0]);
                 I item = iParser.parse(tokens[1]);
                 double value;

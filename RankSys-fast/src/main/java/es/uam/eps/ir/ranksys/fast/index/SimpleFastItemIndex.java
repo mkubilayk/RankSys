@@ -107,7 +107,7 @@ public class SimpleFastItemIndex<I> implements FastItemIndex<I> {
         SimpleFastItemIndex<I> itemIndex = new SimpleFastItemIndex<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             reader.lines()
-                    .map(line -> iParser.parse(split(line, '\t')[0]))
+                    .map(line -> iParser.parse(line.split("::")[0]))
                     .sorted()
                     .forEach(i -> itemIndex.add(i));
         }

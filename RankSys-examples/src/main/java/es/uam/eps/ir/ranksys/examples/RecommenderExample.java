@@ -86,14 +86,14 @@ public class RecommenderExample {
         Map<String, Supplier<Recommender<Long, Long>>> recMap = new HashMap<>();
 
         // random recommendation
-        recMap.put("rnd", () -> {
-            return new RandomRecommender<>(trainData, trainData);
-        });
-
-        // most-popular recommendation
-        recMap.put("pop", () -> {
-            return new PopularityRecommender<>(trainData);
-        });
+//        recMap.put("rnd", () -> {
+//            return new RandomRecommender<>(trainData, trainData);
+//        });
+//
+//        // most-popular recommendation
+//        recMap.put("pop", () -> {
+//            return new PopularityRecommender<>(trainData);
+//        });
 
         // user-based nearest neighbors
         recMap.put("ub", () -> {
@@ -107,54 +107,54 @@ public class RecommenderExample {
             return new UserNeighborhoodRecommender<>(trainData, neighborhood, q);
         });
 
-        // item-based nearest neighbors
-        recMap.put("ib", () -> {
-            double alpha = 0.5;
-            int k = 10;
-            int q = 1;
-
-            ItemSimilarity<Long> sim = new VectorCosineItemSimilarity<>(trainData, alpha);
-            ItemNeighborhood<Long> neighborhood = new TopKItemNeighborhood<>(sim, k);
-            neighborhood = new CachedItemNeighborhood<>(neighborhood);
-
-            return new ItemNeighborhoodRecommender<>(trainData, neighborhood, q);
-        });
-
-        // implicit matrix factorization of Hu et al. 2008
-        recMap.put("hkv", () -> {
-            int k = 50;
-            double lambda = 0.1;
-            double alpha = 1.0;
-            DoubleUnaryOperator confidence = x -> 1 + alpha * x;
-            int numIter = 20;
-
-            Factorization<Long, Long> factorization = new HKVFactorizer<Long, Long>(lambda, confidence, numIter).factorize(k, trainData);
-
-            return new MFRecommender<>(userIndex, itemIndex, factorization);
-        });
-
-        // implicit matrix factorization of Pilaszy et al. 2010
-        recMap.put("pzt", () -> {
-            int k = 50;
-            double lambda = 0.1;
-            double alpha = 1.0;
-            DoubleUnaryOperator confidence = x -> 1 + alpha * x;
-            int numIter = 20;
-
-            Factorization<Long, Long> factorization = new PZTFactorizer<Long, Long>(lambda, confidence, numIter).factorize(k, trainData);
-
-            return new MFRecommender<>(userIndex, itemIndex, factorization);
-        });
-
-        // probabilistic latent semantic analysis of Hofmann 2004
-        recMap.put("plsa", () -> {
-            int k = 50;
-            int numIter = 100;
-
-            Factorization<Long, Long> factorization = new PLSAFactorizer<Long, Long>(numIter).factorize(k, trainData);
-
-            return new MFRecommender<>(userIndex, itemIndex, factorization);
-        });
+//        // item-based nearest neighbors
+//        recMap.put("ib", () -> {
+//            double alpha = 0.5;
+//            int k = 10;
+//            int q = 1;
+//
+//            ItemSimilarity<Long> sim = new VectorCosineItemSimilarity<>(trainData, alpha);
+//            ItemNeighborhood<Long> neighborhood = new TopKItemNeighborhood<>(sim, k);
+//            neighborhood = new CachedItemNeighborhood<>(neighborhood);
+//
+//            return new ItemNeighborhoodRecommender<>(trainData, neighborhood, q);
+//        });
+//
+//        // implicit matrix factorization of Hu et al. 2008
+//        recMap.put("hkv", () -> {
+//            int k = 50;
+//            double lambda = 0.1;
+//            double alpha = 1.0;
+//            DoubleUnaryOperator confidence = x -> 1 + alpha * x;
+//            int numIter = 20;
+//
+//            Factorization<Long, Long> factorization = new HKVFactorizer<Long, Long>(lambda, confidence, numIter).factorize(k, trainData);
+//
+//            return new MFRecommender<>(userIndex, itemIndex, factorization);
+//        });
+//
+//        // implicit matrix factorization of Pilaszy et al. 2010
+//        recMap.put("pzt", () -> {
+//            int k = 50;
+//            double lambda = 0.1;
+//            double alpha = 1.0;
+//            DoubleUnaryOperator confidence = x -> 1 + alpha * x;
+//            int numIter = 20;
+//
+//            Factorization<Long, Long> factorization = new PZTFactorizer<Long, Long>(lambda, confidence, numIter).factorize(k, trainData);
+//
+//            return new MFRecommender<>(userIndex, itemIndex, factorization);
+//        });
+//
+//        // probabilistic latent semantic analysis of Hofmann 2004
+//        recMap.put("plsa", () -> {
+//            int k = 50;
+//            int numIter = 100;
+//
+//            Factorization<Long, Long> factorization = new PLSAFactorizer<Long, Long>(numIter).factorize(k, trainData);
+//
+//            return new MFRecommender<>(userIndex, itemIndex, factorization);
+//        });
 
         ////////////////////////////////
         // GENERATING RECOMMENDATIONS //
