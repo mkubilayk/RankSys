@@ -168,9 +168,12 @@ public class SimpleFeatureData<I, F, V> implements FeatureData<I, F, V> {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             reader.lines().forEach(l -> {
-                String[] tokens = l.split("\t", 3);
+                String[] tokens = l.split("::", 3);
                 I item = iParser.parse(tokens[0]);
-                F feat = fParser.parse(tokens[1]);
+                // tokenize genres as  
+                String[] genreArray = tokens[2].split("\\|");
+                // F feat = fParser.parse(tokens[1]);
+                // unnecessary if else, parser always parse null
                 V value;
                 if (tokens.length == 2) {
                     value = vParser.parse(null);
@@ -183,14 +186,20 @@ public class SimpleFeatureData<I, F, V> implements FeatureData<I, F, V> {
                     iList = new ArrayList<>();
                     itemMap.put(item, iList);
                 }
-                iList.add(new IdObject<>(feat, value));
-
-                List<IdObject<I, V>> fList = featMap.get(feat);
-                if (fList == null) {
-                    fList = new ArrayList<>();
-                    featMap.put(feat, fList);
+                
+                // add feature to the item for every genre
+                for(String genre : genreArray) {
+                	F feat = fParser.parse(genre);
+                	iList.add(new IdObject<>(feat, value));
+                	
+                	List<IdObject<I, V>> fList = featMap.get(feat);
+                    if (fList == null) {
+                        fList = new ArrayList<>();
+                        featMap.put(feat, fList);
+                    }
+                    fList.add(new IdObject<>(item, value));
                 }
-                fList.add(new IdObject<>(item, value));
+                
             });
         }
 
