@@ -75,8 +75,7 @@ public class RecommenderExample {
 	public static void main(String[] args) throws IOException {
 
 		FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(USER_FILE, lp);
-		FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(MOVIES_FILE,
-				lp);
+		FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(MOVIES_FILE, lp);
 
 		// ////////////////
 		// RECOMMENDERS //
@@ -108,7 +107,7 @@ public class RecommenderExample {
 						return new PopularityRecommender<>(trainData);
 					});
 
-			// // item-based nearest neighbors
+			// item-based nearest neighbors
 			recMap.put(
 					OUTPUT_FOLDER + "itemknn/" + i + ".recommendation",
 					() -> {
@@ -127,7 +126,7 @@ public class RecommenderExample {
 								trainData, neighborhood, q);
 					});
 
-			// // implicit matrix factorization of Hu et al. 2008
+			// implicit matrix factorization of Hu et al. 2008
 			recMap.put(
 					OUTPUT_FOLDER + "imf/" + i + ".recommendation",
 					() -> {

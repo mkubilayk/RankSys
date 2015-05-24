@@ -178,7 +178,7 @@ public class SimplePreferenceData<U, I, O> implements PreferenceData<U, I, O> {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             reader.lines().forEach(l -> {
-                String[] tokens = l.split("\t", 4);
+                String[] tokens = l.split("::", 4);
                 U user = uParser.parse(tokens[0]);
                 I item = iParser.parse(tokens[1]);
                 double value;
