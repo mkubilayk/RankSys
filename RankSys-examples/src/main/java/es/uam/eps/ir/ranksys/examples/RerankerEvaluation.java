@@ -56,19 +56,19 @@ import es.uam.eps.ir.ranksys.novdiv.distance.ItemDistanceModel;
  * @author Saúl Vargas (saul.vargas@uam.es)
  * @author Pablo Castells (pablo.castells@uam.es)
  */
-public class RecommenderEvaluation {
+public class RerankerEvaluation {
 
-	public static String[] RECOMMENDATIONS_FOLDERS = {
-			"src/main/resources/recommendations/imf/",
-			"src/main/resources/recommendations/itemknn/",
-			"src/main/resources/recommendations/poprec/",
-			"src/main/resources/recommendations/random/" };
+	public static String RERANKED_FOLDER = "src/main/resources/reranked/";
 	public static String RATINGS_FOLDER = "src/main/resources/ratings/";
 
 	public static String FEATURES_FILE = "src/main/resources/features/movies.dat";
 	public static String RATINGS_FILE = "src/main/resources/ratings/ratings.dat";
 	public static String USER_FILE = "src/main/resources/users/users.dat";
 	public static String MOVIES_FILE = "src/main/resources/movies/movies.dat";
+
+	public static String[] RECOMMENDERS = { "random", "poprec", "itemknn",
+			"imf" };
+	public static String[] RERANKERS = { "random", "binom", "mmr", "xquad" };
 
 	public static void main(String[] args) throws Exception {
 		Double threshold = 4.0;
@@ -102,7 +102,6 @@ public class RecommenderEvaluation {
 			// INTENT MODEL
 			IntentModel<Long, Long, String> intentModel = new IntentModel<>(
 					testData.getUsersWithPreferences(), totalData, featureData);
-
 			// BinomialModel
 			BinomialModel<Long, Long, String> binomialModel = new BinomialModel<>(
 					true, testData.getUsersWithPreferences(), totalData,
@@ -124,7 +123,6 @@ public class RecommenderEvaluation {
 			// //////////////////////
 			// DIVERSITY METRICS //
 			// //////////////////////
-			// // BinomDiv
 			recMetrics.put("binom-div", new BinomialDiversity<>(binomialModel,
 					featureData, cutoff, norel));
 			// // EILD
@@ -145,36 +143,26 @@ public class RecommenderEvaluation {
 
 			// now we need to implement for each kind of recommender
 
-			for (String recommender : RECOMMENDATIONS_FOLDERS) {
-				format.getReader(recommender + i + ".recommendation")
-						.readAll()
-						.forEach(
-								rec -> sysMetrics.values().forEach(
-										metric -> metric.add(rec)));
-				// hack to get recommender name from recommendation result
-				// folder
-				String recommenderName = recommender.split("/")[4];
+			for (String reranker : RERANKERS) {
+				for (String recommender : RECOMMENDERS) {
+					format.getReader(
+							RERANKED_FOLDER + "/" + reranker + "/"
+									+ recommender + "/" + i + ".recommendation")
+							.readAll()
+							.forEach(
+									rec -> sysMetrics.values().forEach(
+											metric -> metric.add(rec)));
 
-				sysMetrics.forEach((metricName, metric) -> System.out
-						.println(index + "," + recommenderName + ","
-								+ metricName + "," + metric.evaluate()));
-
-				// clear previous recommendation datas in metric new ones will
-				// be calculated
-				sysMetrics.forEach((metricName, metric) -> metric.reset());
+					sysMetrics.forEach((metricName, metric) -> System.out
+							.println("Fold:" + index + "," + reranker + ","
+									+ recommender + "," + metricName + ","
+									+ metric.evaluate()));
+					sysMetrics.forEach((metricName, metric) -> metric.reset());
+				}
 			}
 			recMetrics.clear();
 			sysMetrics.clear();
-
 		}
-
-		// //////////////////
-		// SYSTEM METRICS //
-		// //////////////////
-		// sysMetrics.put("aggrdiv", new AggregateDiversityMetric<>(cutoff,
-		// norel));
-		// int numItems = totalData.numItemsWithPreferences();
-		// sysMetrics.put("gini", new GiniIndex<>(cutoff, numItems));
 
 	}
 }
