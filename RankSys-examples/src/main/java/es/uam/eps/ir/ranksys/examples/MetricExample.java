@@ -98,19 +98,19 @@ public class MetricExample {
         // PRECISION
         recMetrics.put("prec", new Precision<>(cutoff, binRel));
         // nDCG
-        recMetrics.put("ndcg", new NDCG<>(cutoff, new NDCG.NDCGRelevanceModel<>(false, testData, threshold)));
-        // EILD
-        recMetrics.put("eild", new EILD<>(cutoff, dist, norel, disc));
-        // EPC
-        recMetrics.put("epc", new EPC<>(cutoff, new PCItemNovelty<>(trainData), norel, disc));
-        // EFD
-        recMetrics.put("efd", new EFD<>(cutoff, new FDItemNovelty<>(trainData), norel, disc));
-        // EPD
-        recMetrics.put("epd", new EPD<>(cutoff, new PDItemNovelty<>(false, trainData, dist), norel, disc));
-        // ERR-IA
-        recMetrics.put("err-ia", new ERRIA<>(cutoff, intentModel, new ERRIA.ERRRelevanceModel<>(false, testData, threshold)));
-        // alpha-nDCG
-        recMetrics.put("a-ndcg", new AlphaNDCG<>(cutoff, 0.5, featureData, binRel));
+//        recMetrics.put("ndcg", new NDCG<>(cutoff, new NDCG.NDCGRelevanceModel<>(false, testData, threshold)));
+//        // EILD
+//        recMetrics.put("eild", new EILD<>(cutoff, dist, norel, disc));
+//        // EPC
+//        recMetrics.put("epc", new EPC<>(cutoff, new PCItemNovelty<>(trainData), norel, disc));
+//        // EFD
+//        recMetrics.put("efd", new EFD<>(cutoff, new FDItemNovelty<>(trainData), norel, disc));
+//        // EPD
+//        recMetrics.put("epd", new EPD<>(cutoff, new PDItemNovelty<>(false, trainData, dist), norel, disc));
+//        // ERR-IA
+//        recMetrics.put("err-ia", new ERRIA<>(cutoff, intentModel, new ERRIA.ERRRelevanceModel<>(false, testData, threshold)));
+//        // alpha-nDCG
+//        recMetrics.put("a-ndcg", new AlphaNDCG<>(cutoff, 0.5, featureData, binRel));
 
         // AVERAGE VALUES OF RECOMMENDATION METRICS FOR ITEMS IN TEST
         int numUsers = testData.numUsersWithPreferences();
@@ -119,9 +119,9 @@ public class MetricExample {
         ////////////////////
         // SYSTEM METRICS //
         ////////////////////
-        sysMetrics.put("aggrdiv", new AggregateDiversityMetric<>(cutoff, norel));
-        int numItems = totalData.numItemsWithPreferences();
-        sysMetrics.put("gini", new GiniIndex<>(cutoff, numItems));
+//        sysMetrics.put("aggrdiv", new AggregateDiversityMetric<>(cutoff, norel));
+//        int numItems = totalData.numItemsWithPreferences();
+//        sysMetrics.put("gini", new GiniIndex<>(cutoff, numItems));
 
         RecommendationFormat<Long, Long> format = new SimpleRecommendationFormat<>(lp, lp);
 

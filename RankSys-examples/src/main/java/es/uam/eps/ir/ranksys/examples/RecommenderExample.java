@@ -75,7 +75,8 @@ public class RecommenderExample {
 	public static void main(String[] args) throws IOException {
 
 		FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(USER_FILE, lp);
-		FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(MOVIES_FILE, lp);
+		FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(MOVIES_FILE,
+				lp);
 
 		// ////////////////
 		// RECOMMENDERS //
@@ -91,18 +92,15 @@ public class RecommenderExample {
 					.load(RATINGS_FOLDER + "test." + i, lp, lp, ddp, vp,
 							userIndex, itemIndex);
 
-			
 			// random recommender
 			final int index = i;
-			recMap.put(
-					OUTPUT_FOLDER + "random/" + i + ".recommendation",
+			recMap.put(OUTPUT_FOLDER + "random/" + i + ".recommendation",
 					() -> {
 						return new RandomRecommender<>(trainData, trainData);
 					});
 
 			// most-popular recommendation
-			recMap.put(
-					OUTPUT_FOLDER + "poprec/" + i + ".recommendation",
+			recMap.put(OUTPUT_FOLDER + "poprec/" + i + ".recommendation",
 					() -> {
 						return new PopularityRecommender<>(trainData);
 					});
@@ -122,8 +120,8 @@ public class RecommenderExample {
 						neighborhood = new CachedItemNeighborhood<>(
 								neighborhood);
 
-						return new ItemNeighborhoodRecommender<>(
-								trainData, neighborhood, q);
+						return new ItemNeighborhoodRecommender<>(trainData,
+								neighborhood, q);
 					});
 
 			// implicit matrix factorization of Hu et al. 2008
@@ -145,8 +143,8 @@ public class RecommenderExample {
 					});
 
 			// creating recommendation runners
-			Set<Long> targetUsers = testData
-					.getUsersWithPreferences().collect(Collectors.toSet());
+			Set<Long> targetUsers = testData.getUsersWithPreferences().collect(
+					Collectors.toSet());
 			RecommendationFormat<Long, Long> format = new SimpleRecommendationFormat<>(
 					lp, lp);
 			Function<Long, IntPredicate> filter = FastFilters

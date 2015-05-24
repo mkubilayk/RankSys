@@ -98,42 +98,42 @@ public class RerankerExample {
         		final int idx2 = i;
         		
         		// MMR diversification
-        		rankMap.put(
-        				OUTPUT_FOLDER + "mmr/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
-        				() -> {
-        					double lambda = 0.9;
-            				int cutoff = 20;
-            				
-            				ItemDistanceModel<Long> dist = new JaccardFeatureItemDistanceModel<>(featureData);
-            				return new MMR<>(lambda, cutoff, dist);
-        				});
-        		
-        		// xQuAD diversification
 //        		rankMap.put(
-//        				OUTPUT_FOLDER + "xquad/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
+//        				OUTPUT_FOLDER + "mmr/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
 //        				() -> {
-//        					double lambda = 0.2;
+//        					double lambda = 0.9;
 //            				int cutoff = 20;
-//
-//            				IntentModel<Long, Long, String> intn = new IntentModel<>(testData.getUsersWithPreferences(), totalData, featureData);
-//            				return new XQuAD<>(intn, lambda, cutoff, false); // normalize: false?
+//            				
+//            				ItemDistanceModel<Long> dist = new JaccardFeatureItemDistanceModel<>(featureData);
+//            				return new MMR<>(lambda, cutoff, dist);
 //        				});
-        		
-        		// MMR diversification
+//        		
+        		// xQuAD diversification
         		rankMap.put(
-        				OUTPUT_FOLDER + "binom/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
+        				OUTPUT_FOLDER + "xquad/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
         				() -> {
-        					double lambda = 0.7;
+        					double lambda = 0.2;
             				int cutoff = 20;
-            				double alpha = 0.5;
-            				
-            				// cache? cached user diversity models?
-            				List<Long> userList = new ArrayList<Long>();
-            				
-            				BinomialModel<Long, Long, String> bin = new BinomialModel<>(false, userList.stream(), recommenderData, featureData, alpha);
-            				return new BinomialDiversityReranker<>(featureData, bin, lambda, cutoff);
+
+            				IntentModel<Long, Long, String> intn = new IntentModel<>(testData.getUsersWithPreferences(), totalData, featureData);
+            				return new XQuAD<>(intn, lambda, cutoff, false); // normalize: false?
         				});
         		
+				// Binom diversification
+//        		rankMap.put(
+//        				OUTPUT_FOLDER + "binom/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
+//        				() -> {
+//        					double lambda = 0.7;
+//            				int cutoff = 20;
+//            				double alpha = 0.5;
+//            				
+//            				// cache? cached user diversity models?
+//            				List<Long> userList = new ArrayList<Long>();
+//            				
+//            				BinomialModel<Long, Long, String> bin = new BinomialModel<>(false, userList.stream(), recommenderData, featureData, alpha);
+//            				return new BinomialDiversityReranker<>(featureData, bin, lambda, cutoff);
+//        				});
+//        		
         		
         		rankMap.forEach((name, reranker) -> {
         			System.out.println("Running " + name);
