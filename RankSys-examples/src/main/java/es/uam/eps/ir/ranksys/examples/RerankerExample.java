@@ -41,6 +41,7 @@ import es.uam.eps.ir.ranksys.fast.index.SimpleFastItemIndex;
 import es.uam.eps.ir.ranksys.fast.index.SimpleFastUserIndex;
 import es.uam.eps.ir.ranksys.fast.preference.FastPreferenceData;
 import es.uam.eps.ir.ranksys.fast.preference.SimpleFastPreferenceData;
+import es.uam.eps.ir.ranksys.novdiv.reranking.RandomReranker;
 import es.uam.eps.ir.ranksys.novdiv.reranking.Reranker;
 
 import java.io.IOException;
@@ -95,51 +96,60 @@ public class RerankerExample {
         	final int idx1 = i;
         	
         	for (int j = 0; j < 5; j++) {
-        		final int idx2 = i;
+        		final int idx2 = j;
         		
-        		// MMR diversification
-//        		rankMap.put(
-//        				OUTPUT_FOLDER + "mmr/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
-//        				() -> {
-//        					double lambda = 0.9;
-//            				int cutoff = 20;
-//            				
-//            				ItemDistanceModel<Long> dist = new JaccardFeatureItemDistanceModel<>(featureData);
-//            				return new MMR<>(lambda, cutoff, dist);
-//        				});
-//        		
-        		// xQuAD diversification
+        		// Random diversification
         		rankMap.put(
-        				OUTPUT_FOLDER + "xquad/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
+        				OUTPUT_FOLDER + "random/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
         				() -> {
-        					double lambda = 0.2;
-            				int cutoff = 20;
-
-            				IntentModel<Long, Long, String> intn = new IntentModel<>(testData.getUsersWithPreferences(), totalData, featureData);
-            				return new XQuAD<>(intn, lambda, cutoff, false); // normalize: false?
+            				return new RandomReranker<>();
         				});
         		
-				// Binom diversification
+        		// MMR diversification
+        		rankMap.put(
+        				OUTPUT_FOLDER + "mmr/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
+        				() -> {
+        					double lambda = 0.9;
+            				int cutoff = 20;
+            				
+            				ItemDistanceModel<Long> dist = new JaccardFeatureItemDistanceModel<>(featureData);
+            				return new MMR<>(lambda, cutoff, dist);
+        				});
+        		
+        		// xQuAD diversification
 //        		rankMap.put(
-//        				OUTPUT_FOLDER + "binom/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
+//        				OUTPUT_FOLDER + "xquad/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
 //        				() -> {
-//        					double lambda = 0.7;
+//        					double lambda = 0.2;
 //            				int cutoff = 20;
-//            				double alpha = 0.5;
-//            				
-//            				// cache? cached user diversity models?
-//            				List<Long> userList = new ArrayList<Long>();
-//            				
-//            				BinomialModel<Long, Long, String> bin = new BinomialModel<>(false, userList.stream(), recommenderData, featureData, alpha);
-//            				return new BinomialDiversityReranker<>(featureData, bin, lambda, cutoff);
+//
+//            				IntentModel<Long, Long, String> intn = new IntentModel<>(testData.getUsersWithPreferences(), totalData, featureData);
+//            				return new XQuAD<>(intn, lambda, cutoff, false); // normalize: false?
 //        				});
 //        		
+				// Binom diversification
+        		rankMap.put(
+        				OUTPUT_FOLDER + "binom/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
+        				() -> {
+        					double lambda = 0.7;
+            				int cutoff = 20;
+            				double alpha = 0.5;
+            				
+            				// cache? cached user diversity models?
+            				List<Long> userList = new ArrayList<Long>();
+            				
+            				BinomialModel<Long, Long, String> bin = new BinomialModel<>(false, userList.stream(), recommenderData, featureData, alpha);
+            				return new BinomialDiversityReranker<>(featureData, bin, lambda, cutoff);
+        				});
+        		
         		
         		rankMap.forEach((name, reranker) -> {
-        			System.out.println("Running " + name);
-        			System.out.flush();
         			
         			String recIn = RECOMMENDATIONS_FOLDER + RECOMMENDATIONS[idx1] + "/" + idx2 + ".recommendation";
+        			
+        			System.out.println("Running " + name);
+        			System.out.println("Rec In: " + recIn);
+        			System.out.flush();
         			
         			RecommendationFormat<Long, Long> format = new SimpleRecommendationFormat<>(lp, lp);
         			
