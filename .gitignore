@@ -9,3 +9,4 @@ tmp/
 .settings
 .project
 */bin
+/RankSys-examples/src/main/resources/
