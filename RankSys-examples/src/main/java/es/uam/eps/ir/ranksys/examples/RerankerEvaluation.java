@@ -66,9 +66,8 @@ public class RerankerEvaluation {
 	public static String USER_FILE = "src/main/resources/users/users.dat";
 	public static String MOVIES_FILE = "src/main/resources/movies/movies.dat";
 
-	public static String[] RECOMMENDERS = { "random", "poprec", "itemknn",
-			"imf" };
-	public static String[] RERANKERS = { "random", "binom", "mmr", "xquad" };
+	public static String[] RECOMMENDERS = { "random", "poprec", "itemknn", "imf" };
+	public static String[] RERANKERS = { "random", "binom", "mmr", "xquad", "combsum" };
 
 	public static void main(String[] args) throws Exception {
 		Double threshold = 4.0;
@@ -154,7 +153,7 @@ public class RerankerEvaluation {
 											metric -> metric.add(rec)));
 
 					sysMetrics.forEach((metricName, metric) -> System.out
-							.println("Fold:" + index + "," + reranker + ","
+							.println(index + "," + reranker + ","
 									+ recommender + "," + metricName + ","
 									+ metric.evaluate()));
 					sysMetrics.forEach((metricName, metric) -> metric.reset());

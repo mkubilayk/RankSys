@@ -32,6 +32,7 @@ import es.uam.eps.ir.ranksys.novdiv.distance.ItemDistanceModel;
 import es.uam.eps.ir.ranksys.novdiv.distance.JaccardFeatureItemDistanceModel;
 import es.uam.eps.ir.ranksys.diversity.distance.reranking.MMR;
 import es.uam.eps.ir.ranksys.diversity.intentaware.IntentModel;
+import es.uam.eps.ir.ranksys.diversity.intentaware.reranking.CombSUM;
 import es.uam.eps.ir.ranksys.diversity.intentaware.reranking.XQuAD;
 import es.uam.eps.ir.ranksys.diversity.binom.BinomialModel;
 import es.uam.eps.ir.ranksys.diversity.binom.reranking.BinomialDiversityReranker;
@@ -70,7 +71,7 @@ public class RerankerExample {
 	public static String USER_FILE = "src/main/resources/users/users.dat";
 	public static String MOVIES_FILE = "src/main/resources/movies/movies.dat";
 	
-	public static String[] RECOMMENDATIONS = {"random", "poprec", "itemknn", "imf"};
+	public static String[] RECOMMENDATIONS = {"imf", "poprec", "itemknn", "random"};
 
     public static void main(String[] args) throws Exception {
         FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(USER_FILE, lp);
@@ -87,16 +88,16 @@ public class RerankerExample {
         Map<String, Supplier<Reranker<Long, Long>>> rankMap = new HashMap<>();
         
         for (int i = 0; i < RECOMMENDATIONS.length; i++) {
-        	PreferenceData<Long, Long, Void> testData = SimplePreferenceData.load(RATINGS_FOLDER + "test." + i, lp, lp, ddp, vp);
-        	PreferenceData<Long, Long, Void> trainData = SimplePreferenceData.load(RATINGS_FOLDER + "train." + i, lp, lp, ddp, vp);
-        	PreferenceData<Long, Long, Void> totalData = new ConcatPreferenceData<>(trainData, testData);
-        	// concat preference data accepts preference data type only.
-        	// extend it for fast preference data?
-        	
         	final int idx1 = i;
         	
         	for (int j = 0; j < 5; j++) {
         		final int idx2 = j;
+        		
+        		PreferenceData<Long, Long, Void> testData = SimplePreferenceData.load(RATINGS_FOLDER + "test." + j, lp, lp, ddp, vp);
+            	PreferenceData<Long, Long, Void> trainData = SimplePreferenceData.load(RATINGS_FOLDER + "train." + j, lp, lp, ddp, vp);
+            	PreferenceData<Long, Long, Void> totalData = new ConcatPreferenceData<>(trainData, testData);
+            	// concat preference data accepts preference data type only.
+            	// extend it for fast preference data?
         		
         		// Random diversification
         		rankMap.put(
@@ -117,16 +118,27 @@ public class RerankerExample {
         				});
         		
         		// xQuAD diversification
-//        		rankMap.put(
-//        				OUTPUT_FOLDER + "xquad/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
-//        				() -> {
-//        					double lambda = 0.2;
-//            				int cutoff = 20;
-//
-//            				IntentModel<Long, Long, String> intn = new IntentModel<>(testData.getUsersWithPreferences(), totalData, featureData);
-//            				return new XQuAD<>(intn, lambda, cutoff, false); // normalize: false?
-//        				});
-//        		
+        		rankMap.put(
+        				OUTPUT_FOLDER + "xquad/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
+        				() -> {
+        					double lambda = 0.2;
+            				int cutoff = 20;
+
+            				IntentModel<Long, Long, String> intn = new IntentModel<>(testData.getUsersWithPreferences(), totalData, featureData);
+            				return new XQuAD<>(intn, lambda, cutoff, false); // normalize: false?
+        				});
+        		
+        		// CombSUM diversification
+        		rankMap.put(
+        				OUTPUT_FOLDER + "combsum/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
+        				() -> {
+        					double lambda = 0.2;
+            				int cutoff = 20;
+
+            				IntentModel<Long, Long, String> intn = new IntentModel<>(testData.getUsersWithPreferences(), totalData, featureData);
+            				return new CombSUM<>(intn, lambda, cutoff, true); // normalize: false?
+        				});
+        		
 				// Binom diversification
         		rankMap.put(
         				OUTPUT_FOLDER + "binom/" + RECOMMENDATIONS[i] + "/" + j + ".recommendation",
@@ -141,7 +153,6 @@ public class RerankerExample {
             				BinomialModel<Long, Long, String> bin = new BinomialModel<>(false, userList.stream(), recommenderData, featureData, alpha);
             				return new BinomialDiversityReranker<>(featureData, bin, lambda, cutoff);
         				});
-        		
         		
         		rankMap.forEach((name, reranker) -> {
         			
